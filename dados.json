@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "nome": "Ana",
+      "idade": 12,
+      "nota": 8.5
+    },
+    {
+      "id": 2,
+      "nome": "Bruno",
+      "idade": 15,
+      "nota": 7.0
+    },
+    {
+      "id": 3,
+      "nome": "Carla",
+      "idade": 10,
+      "nota": 9.2
+    }
+  ]
+  

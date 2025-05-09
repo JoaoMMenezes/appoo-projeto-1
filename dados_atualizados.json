@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nome": "Ana",
+    "idade": 12,
+    "nota": 8.5,
+    "media_turma": 8.23
+  },
+  {
+    "id": 2,
+    "nome": "Bruno",
+    "idade": 15,
+    "nota": 7.0,
+    "media_turma": 8.23
+  },
+  {
+    "id": 3,
+    "nome": "Carla",
+    "idade": 10,
+    "nota": 9.2,
+    "media_turma": 8.23
+  }
+]
