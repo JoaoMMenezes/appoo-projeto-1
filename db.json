@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "id": "a1",
+      "nome": "Ana",
+      "email": "ana@ex.com",
+      "senha": "pass123",
+      "tipo": "Aluno"
+    },
+    {
+      "id": "p1",
+      "nome": "Paulo",
+      "email": "paulo@ex.com",
+      "senha": "prof123",
+      "tipo": "Professor"
+    },
+    {
+      "id": "c1",
+      "nome": "Carla",
+      "email": "carla@ex.com",
+      "senha": "coord123",
+      "tipo": "Coordenador"
+    }
+  ],
+  "cursos": [],
+  "turmas": []
+}
