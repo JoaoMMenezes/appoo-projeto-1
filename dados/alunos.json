@@ -1,0 +1,13 @@
+[
+    {
+        "id_usuario": "3954927f-44fd-4abe-96e1-61cabece20d0",
+        "nome": "Aluno Teste",
+        "email": "aluno@sistema.com",
+        "_senha_hash": "fd5675ae2e933b4070e682938203dcbb978966909cf03f3d9c4f271ad1b3107b",
+        "tipo": "Aluno",
+        "matricula": "MAT001",
+        "turmas_inscritas": [
+            "6435425c-5cce-4951-8ee4-4ef9c6f541eb"
+        ]
+    }
+]

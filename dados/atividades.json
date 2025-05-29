@@ -1,0 +1,18 @@
+[
+    {
+        "id_atividade": "1988c893-862e-466c-9391-e086479d5aa3",
+        "id_turma_ou_curso": "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+        "titulo": "Primeiro Trabalho de Python",
+        "descricao": "Resolver os exercícios do Cap. 1",
+        "data_prazo": "15/06/2025",
+        "tipo": "Trabalho"
+    },
+    {
+        "id_atividade": "70e327b2-7c3a-4949-b1e1-ac1c9564bdb4",
+        "id_turma_ou_curso": "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+        "titulo": "Prova Parcial 1",
+        "descricao": "Conteúdo das primeiras 5 aulas.",
+        "data_prazo": "30/06/2025",
+        "tipo": "Prova"
+    }
+]

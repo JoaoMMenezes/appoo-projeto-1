@@ -1,0 +1,20 @@
+[
+    {
+        "id_trilha": "1949ea08-0c1c-498e-9736-58a1acf82f1d",
+        "nome_trilha": "Fundamentos de Python",
+        "descricao": "Aprenda o básico da programação com Python.",
+        "sequencia_itens": [
+            {
+                "tipo": "curso",
+                "id_item": "a472bfe5-5f61-4193-8243-8745fb779015",
+                "nome_referencia": "Introdução à Programação"
+            },
+            {
+                "tipo": "atividade",
+                "id_item": "1988c893-862e-466c-9391-e086479d5aa3",
+                "nome_referencia": "Primeiro Trabalho de Python"
+            }
+        ],
+        "publico_alvo": "Iniciantes"
+    }
+]

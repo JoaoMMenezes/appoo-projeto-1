@@ -1,0 +1,12 @@
+[
+    {
+        "id_avaliacao": "2d0e7b45-7c9d-4849-b4c2-d8516056adff",
+        "id_aluno": "3954927f-44fd-4abe-96e1-61cabece20d0",
+        "id_atividade": "1988c893-862e-466c-9391-e086479d5aa3",
+        "id_turma": "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+        "nota": "8.5",
+        "feedback_professor": "Muito bom esforço!",
+        "data_lancamento": "2025-05-29 16:23:53",
+        "id_professor_avaliador": "ecbb8ec4-659e-44df-bc07-7fdf8f1825ad"
+    }
+]
