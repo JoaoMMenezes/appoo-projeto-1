@@ -1,0 +1,14 @@
+[
+    {
+        "id_usuario": "ecbb8ec4-659e-44df-bc07-7fdf8f1825ad",
+        "nome": "Prof. Xavier",
+        "email": "prof@sistema.com",
+        "_senha_hash": "00624b02e1f9b996a3278f559d5d55313552ad2c0bafc82adfd975c12df61eaf",
+        "tipo": "Professor",
+        "departamento": "Exatas",
+        "turmas_lecionadas": [
+            "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id_curso": "a472bfe5-5f61-4193-8243-8745fb779015",
+        "nome_curso": "Introdução à Programação",
+        "descricao": "Conceitos básicos de lógica e Python.",
+        "carga_horaria": 40,
+        "lista_id_turmas": [
+            "6435425c-5cce-4951-8ee4-4ef9c6f541eb"
+        ]
+    },
+    {
+        "id_curso": "78681dbf-5eda-4210-83b3-a6dcaaefe135",
+        "nome_curso": "Introdução à Engenharia",
+        "descricao": "Curso introdutório de Engenharia",
+        "carga_horaria": 15,
+        "lista_id_turmas": [
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+        ]
+    }
+]

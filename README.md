@@ -1,27 +1,84 @@
-# Análise Projeto e Programação Orientada a Objetos
+# appoo-projeto-1: Sistema de Gestão Educacional
 
-## Projeto 1 – Sistema de Gestão Educacional
+Este projeto é um Sistema de Gestão Educacional desenvolvido em Python, utilizando Programação Orientada a Objetos (POO) e a biblioteca Tkinter para a interface gráfica. O sistema visa gerenciar usuários (Alunos, Professores, Coordenadores), cursos, turmas e atividades, com persistência de dados em arquivos JSON.
 
-O projeto propõe o desenvolvimento de um **sistema educacional orientado a objetos**, implementado em **Python**, com foco na gestão acadêmica de uma instituição. O sistema será estruturado com base em princípios sólidos da **Programação Orientada a Objetos (POO)** e utilizará persistência de dados em arquivos locais.
+## Estrutura do Projeto
 
-### Objetivo
+appoo-projeto-1/
+│
+├── main.py # Script principal para rodar o programa
+├── README.md # Este arquivo
+├── fluxograma.md # Fluxograma da aplicação
+├── .gitignore # Arquivos a serem ignorados pelo Git
+├── LICENSE # Licença do projeto
+│
+├── usuarios/
+│ ├── init.py
+│ ├── usuario.py # Classe base abstrata Usuario
+│ ├── aluno.py # Classe Aluno (herda de Usuario)
+│ ├── professor.py # Classe Professor (herda de Usuario)
+│ └── coordenador.py # Classe Coordenador (herda de Usuario)
+│
+├── entidades/
+│ ├── init.py
+│ ├── curso.py # Classe Curso
+│ ├── turma.py # Classe Turma
+│ └── atividade.py # Classe Atividade
+│
+├── interface/
+│ ├── init.py
+│ ├── tela_login.py # Interface gráfica da tela de login
+│ └── tela_menu.py # Interfaces gráficas dos menus (Aluno, Professor, Coordenador)
+│
+├── persistencia/
+│ ├── init.py
+│ └── gerenciador_dados.py # Classe para leitura e escrita de JSON
+│
+└── dados/
+├── alunos.json # Dados dos alunos
+├── professores.json # Dados dos professores
+├── coordenadores.json # Dados dos coordenadores
+├── turmas.json # Dados das turmas
+├── cursos.json # Dados dos cursos
+└── atividades.json # Dados das atividades
 
-Desenvolver uma aplicação modular capaz de gerenciar usuários, cursos, turmas, atividades e desempenho de alunos, respeitando as permissões e responsabilidades de cada tipo de usuário.
+## Funcionalidades Principais
 
-### Funcionalidades Principais
+- **Gerenciamento de Usuários:**
+  - Cadastro e autenticação de Alunos, Professores e Coordenadores.
+  - Perfis de usuário distintos com diferentes permissões e dashboards.
+- **Gerenciamento Acadêmico:**
+  - **Alunos:** Listar cursos, inscrever-se em turmas, acessar trilhas de aprendizagem, visualizar avaliações.
+  - **Professores:** Criar/editar cursos, gerenciar turmas, publicar aulas, lançar/ver notas.
+  - **Coordenadores:** Gerenciar usuários, gerar relatórios de desempenho, configurar trilhas, auditar conteúdo.
+- **Gerenciamento de Entidades:**
+  - Criação e administração de Cursos.
+  - Criação e administração de Turmas (associadas a Cursos e Professores, contendo Alunos).
+  - Criação e administração de Atividades (associadas a Turmas ou Cursos).
+- **Persistência de Dados:**
+  - Todos os dados são salvos e carregados de arquivos JSON.
+- **Interface Gráfica:**
+  - Interface intuitiva desenvolvida com Tkinter, adaptada ao perfil do usuário.
 
-- **Cadastro, login e controle de acesso** com perfis distintos: `Aluno`, `Professor` e `Coordenador`, cada um com permissões específicas.
-- **Gerenciamento de cursos, turmas, lições e desafios**, com vinculação a professores e acompanhamento do progresso dos alunos.
-- **Lançamento e registro de notas** por professores, com histórico individual de desempenho.
-- **Interface gráfica amigável**, com menus personalizados conforme o tipo de usuário.
-- **Persistência de dados** via arquivos JSON, garantindo armazenamento entre execuções.
-- **Tratamento de exceções** para falhas comuns, como login inválido e controle de lotação de turmas.
+## Paradigmas de POO Utilizados
 
-### Arquitetura e Técnicas Utilizadas
+- **Classes e Objetos:** Estrutura fundamental do sistema.
+- **Herança:** Classes de usuários (`Aluno`, `Professor`, `Coordenador`) herdam da classe base `Usuario`.
+- **Polimorfismo:** Métodos com o mesmo nome podem ter comportamentos diferentes dependendo da classe do objeto (ex: `abrir_dashboard()`).
+- **Encapsulamento:** Proteção dos dados internos dos objetos, expondo interfaces controladas (getters/setters).
+- **Abstração:** A classe `Usuario` é uma classe base abstrata (ABC) que define um contrato para as subclasses.
+- **Composição:** Entidades complexas são formadas por outras entidades (ex: `Turma` é composta por `Aluno`s e associada a um `Curso` e `Professor`).
 
-- **Programação Orientada a Objetos**, com:
-  - **Herança** para especialização dos tipos de usuários.
-  - **Polimorfismo** para permitir comportamentos distintos entre perfis.
-  - **Classes abstratas** para padronizar a estrutura base dos usuários.
-  - **Composição** para modelar relacionamentos entre cursos, turmas e atividades.
-- **Modularização em múltiplos arquivos `.py`**, organizados por domínio lógico (ex: `usuario.py`, `curso.py`, `turma.py`, etc.).
+## Como Executar
+
+1.  Certifique-se de ter o Python 3 instalado.
+2.  Clone o repositório (ou crie os arquivos conforme a estrutura).
+3.  Navegue até o diretório `appoo-projeto-1`.
+4.  Execute o script principal:
+    ```bash
+    python main.py
+    ```
+
+## Fluxograma
+
+Consulte o arquivo `fluxograma.md` para visualizar o fluxo da aplicação.
