@@ -5,7 +5,8 @@
         "descricao": "Conceitos básicos de lógica e Python.",
         "carga_horaria": 40,
         "lista_id_turmas": [
-            "6435425c-5cce-4951-8ee4-4ef9c6f541eb"
+            "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+            "a83e96f0-3b4b-4db7-b025-7d6caee2e8c9"
         ]
     },
     {
@@ -15,6 +16,15 @@
         "carga_horaria": 15,
         "lista_id_turmas": [
             "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+        ]
+    },
+    {
+        "id_curso": "1fe0587c-febd-42a3-945d-9d9683c9bec7",
+        "nome_curso": "Fundamentos de Inteligência Artificial",
+        "descricao": "Introdução à IA.",
+        "carga_horaria": 60,
+        "lista_id_turmas": [
+            "ddf35b4e-c100-4db6-a380-871680b22d4e"
         ]
     }
 ]

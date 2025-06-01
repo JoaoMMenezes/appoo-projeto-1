@@ -7,7 +7,30 @@
         "tipo": "Aluno",
         "matricula": "MAT001",
         "turmas_inscritas": [
-            "6435425c-5cce-4951-8ee4-4ef9c6f541eb"
+            "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+        ]
+    },
+    {
+        "id_usuario": "f6ad0f4e-55d4-4586-a2ba-7fe6bd98d936",
+        "nome": "João Pedro Maduro Menezes",
+        "email": "joaop@teste.com",
+        "_senha_hash": "289160db0d9f39f9ae1754c4ec9c16f90b50e32e09c5fb5481ae642b3d3d1a36",
+        "tipo": "Aluno",
+        "matricula": "MAT002",
+        "turmas_inscritas": [
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+        ]
+    },
+    {
+        "id_usuario": "ea6d9371-ba45-48eb-83b1-06017ceb41ed",
+        "nome": "Aluna da Silva Teste",
+        "email": "aluno",
+        "_senha_hash": "289160db0d9f39f9ae1754c4ec9c16f90b50e32e09c5fb5481ae642b3d3d1a36",
+        "tipo": "Aluno",
+        "matricula": "mat222",
+        "turmas_inscritas": [
+            "ddf35b4e-c100-4db6-a380-871680b22d4e"
         ]
     }
 ]

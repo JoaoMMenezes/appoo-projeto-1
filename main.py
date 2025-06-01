@@ -20,6 +20,10 @@ from interface.tela_listar_cursos_aluno import TelaListarCursosAluno
 from interface.tela_gerenciar_turmas import TelaGerenciarTurmas
 from interface.tela_listar_inscrever_turmas_aluno import TelaListarInscreverTurmasAluno
 from interface.tela_gerenciar_atividades_turma import TelaGerenciarAtividadesTurma
+from interface.tela_cadastro_usuario import TelaCadastroUsuario
+from interface.tela_gerenciar_usuarios import TelaGerenciarUsuarios
+from interface.tela_editar_trilha import TelaEditarTrilha
+from interface.tela_lancar_ver_notas import TelaLancarVerNotas
 
 from entidades.trilha import TrilhaAprendizagem
 from entidades.avaliacao import Avaliacao
@@ -35,7 +39,7 @@ class AppController:
     ARQUIVO_ATIVIDADES = 'atividades.json'
     ARQUIVO_AVALIACOES = 'avaliacoes.json' 
     ARQUIVO_TRILHAS = 'trilhas.json'
-# Continuacao da classe AppController:
+
     def __init__(self, root_window: tk.Tk):
         self.root = root_window
         self.root.title("Sistema de Gestão Educacional")
@@ -52,8 +56,8 @@ class AppController:
         self.cursos: List[Curso] = []
         self.turmas: List[Turma] = []
         self.atividades: List[Atividade] = []
-        self.avaliacoes: List[Avaliacao] = [] # Para o futuro
-        self.trilhas: List[TrilhaAprendizagem] = [] # Para o futuro
+        self.avaliacoes: List[Avaliacao] = [] 
+        self.trilhas: List[TrilhaAprendizagem] = []
 
         self._carregar_todos_os_dados()
 
@@ -232,7 +236,7 @@ class AppController:
         self.gerenciador_dados.salvar_dados(self.ARQUIVO_TRILHAS, [tr.to_dict() for tr in self.trilhas])
         # ... (o print "Todos os dados foram salvos." já deve estar no final)
         print("Todos os dados foram salvos.")
-# Continuacao da classe AppController:
+
     def _limpar_frame_atual(self):
         # Remove o frame principal atual e fecha qualquer Toplevel aberta.
         if self.current_frame:
@@ -306,8 +310,61 @@ class AppController:
         self.mostrar_tela_login()
 
     def mostrar_tela_cadastro(self):
-        # Placeholder para a funcionalidade de cadastro de novos utilizadores.
-        messagebox.showinfo("Em Desenvolvimento", "A tela de cadastro de usuários ainda será implementada.")
+        # Anteriormente: messagebox.showinfo("Em Desenvolvimento", "A tela de cadastro de usuários ainda será implementada.")
+        if self.current_toplevel and self.current_toplevel.winfo_exists():
+            try:
+                self.current_toplevel.destroy()
+            except tk.TclError:
+                pass
+        
+        self.current_toplevel = TelaCadastroUsuario(self.root, self)
+        self.centralizar_janela(550, 550, toplevel_window=self.current_toplevel) # Ajuste as dimensões se necessário
+
+    # Adicionar este novo método:
+    def cadastrar_novo_usuario(self, dados_usuario: dict) -> Tuple[bool, str]:
+        """
+        Cadastra um novo usuário no sistema.
+        """
+        email = dados_usuario["email"]
+        nome = dados_usuario["nome"]
+        senha = dados_usuario["senha"] # Senha em texto plano, será hasheada pela classe Usuario
+        tipo_usuario = dados_usuario["tipo_usuario"]
+        id_usuario = dados_usuario.get("id_usuario", str(uuid.uuid4())) # Usa o ID fornecido ou gera um novo
+
+        # Verificar se email já existe em qualquer lista de usuários
+        if any(u.email == email for u in self.alunos + self.professores + self.coordenadores):
+            return False, f"O email '{email}' já está cadastrado no sistema."
+
+        try:
+            novo_usuario = None
+            if tipo_usuario == "Aluno":
+                matricula = dados_usuario["matricula"]
+                if not matricula: return False, "Matrícula é obrigatória para Aluno."
+                novo_usuario = Aluno(id_usuario, nome, email, senha, matricula)
+                self.alunos.append(novo_usuario)
+            elif tipo_usuario == "Professor":
+                departamento = dados_usuario["departamento"]
+                if not departamento: return False, "Departamento é obrigatório para Professor."
+                novo_usuario = Professor(id_usuario, nome, email, senha, departamento)
+                self.professores.append(novo_usuario)
+            elif tipo_usuario == "Coordenador":
+                area_coordenacao = dados_usuario["area_coordenacao"]
+                if not area_coordenacao: return False, "Área de Coordenação é obrigatória para Coordenador."
+                novo_usuario = Coordenador(id_usuario, nome, email, senha, area_coordenacao)
+                self.coordenadores.append(novo_usuario)
+            else:
+                return False, "Tipo de usuário desconhecido."
+
+            if novo_usuario:
+                self.salvar_todos_os_dados()
+                return True, f"{tipo_usuario} '{nome}' cadastrado com sucesso!"
+            else: # Caso algo dê errado na criação do usuário específico
+                return False, "Não foi possível criar o usuário. Verifique os dados."
+
+        except ValueError as ve: # Captura ValueErrors das classes de usuário (campos obrigatórios)
+            return False, str(ve)
+        except Exception as e:
+            return False, f"Ocorreu um erro inesperado ao cadastrar usuário: {e}"
     
     def mostrar_tela_placeholder(self, titulo_funcionalidade: str):
         # Exibe uma janela Toplevel genérica para funcionalidades em desenvolvimento.
@@ -334,7 +391,102 @@ class AppController:
         btn_fechar.pack(pady=15)
         
         self.current_toplevel = placeholder_window # Guarda referência para gestão
-# Continuacao da classe AppController:
+
+    def mostrar_tela_gerenciar_usuarios(self):
+        """Abre a tela de gerenciamento de usuários."""
+        if self.current_toplevel and self.current_toplevel.winfo_exists():
+            try:
+                self.current_toplevel.destroy()
+            except tk.TclError:
+                pass
+        
+        self.current_toplevel = TelaGerenciarUsuarios(self.root, self)
+        self.centralizar_janela(950, 700, toplevel_window=self.current_toplevel) # Ajuste dimensões
+
+    def obter_usuario_por_id_geral(self, id_usuario: str) -> Optional[Usuario]:
+        """Busca um usuário em todas as listas pelo ID."""
+        for u_list in [self.alunos, self.professores, self.coordenadores]:
+            for usuario in u_list:
+                if usuario.id_usuario == id_usuario:
+                    return usuario
+        return None
+
+    def atualizar_usuario(self, id_usuario_alvo: str, novos_dados: dict, email_original: Optional[str]) -> Tuple[bool, str]:
+        """Atualiza os dados de um usuário existente."""
+        usuario = self.obter_usuario_por_id_geral(id_usuario_alvo)
+        if not usuario:
+            return False, "Usuário não encontrado para atualização."
+
+        novo_email = novos_dados.get("email")
+        # Se o email foi alterado, verificar se o novo email já existe (excluindo o próprio usuário)
+        if novo_email and novo_email != email_original:
+            todos_outros_usuarios = [
+                u for u_list in [self.alunos, self.professores, self.coordenadores] 
+                for u in u_list if u.id_usuario != id_usuario_alvo
+            ]
+            if any(u.email == novo_email for u in todos_outros_usuarios):
+                return False, f"O novo email '{novo_email}' já está em uso por outro usuário."
+        
+        try:
+            usuario.nome = novos_dados.get("nome", usuario.nome)
+            if novo_email: # Atualiza email se fornecido e diferente
+                 usuario.email = novo_email
+
+            tipo_usuario = usuario.obter_tipo_usuario()
+            if tipo_usuario == "Aluno" and "matricula" in novos_dados:
+                setattr(usuario, 'matricula', novos_dados["matricula"])
+            elif tipo_usuario == "Professor" and "departamento" in novos_dados:
+                setattr(usuario, 'departamento', novos_dados["departamento"])
+            elif tipo_usuario == "Coordenador" and "area_coordenacao" in novos_dados:
+                setattr(usuario, 'area_coordenacao', novos_dados["area_coordenacao"])
+            
+            # Nota: A senha não está sendo alterada aqui. Isso exigiria um tratamento especial.
+            # A mudança de tipo de usuário também não é suportada por esta função simples.
+
+            self.salvar_todos_os_dados()
+            return True, f"Usuário '{usuario.nome}' atualizado com sucesso."
+        except Exception as e:
+            return False, f"Erro ao atualizar usuário: {e}"
+
+    def excluir_usuario(self, id_usuario_alvo: str) -> Tuple[bool, str]:
+        """Exclui um usuário do sistema."""
+        usuario_para_excluir = self.obter_usuario_por_id_geral(id_usuario_alvo)
+        if not usuario_para_excluir:
+            return False, "Usuário não encontrado para exclusão."
+
+        tipo = usuario_para_excluir.obter_tipo_usuario()
+        removido = False
+        try:
+            if tipo == "Aluno" and usuario_para_excluir in self.alunos:
+                # Adicionalmente, verificar se o aluno está inscrito em turmas e remover a inscrição
+                aluno_obj = usuario_para_excluir
+                for turma_id in list(aluno_obj.turmas_inscritas): # Usar list() para cópia ao iterar e modificar
+                    turma = self.obter_turma_por_id(turma_id)
+                    if turma:
+                        turma.remover_aluno(aluno_obj.id_usuario)
+                    aluno_obj.cancelar_inscricao_turma(turma_id) # Método do aluno já existe
+                self.alunos.remove(aluno_obj)
+                removido = True
+            elif tipo == "Professor" and usuario_para_excluir in self.professores:
+                # Adicionalmente, desassociar professor de turmas
+                prof_obj = usuario_para_excluir
+                for turma in self.turmas:
+                    if turma.id_professor == prof_obj.id_usuario:
+                        turma.definir_professor(None) # Ou algum placeholder/lógica
+                self.professores.remove(prof_obj)
+                removido = True
+            elif tipo == "Coordenador" and usuario_para_excluir in self.coordenadores:
+                self.coordenadores.remove(usuario_para_excluir)
+                removido = True
+            
+            if removido:
+                self.salvar_todos_os_dados()
+                return True, f"{tipo} '{usuario_para_excluir.nome}' excluído com sucesso."
+            else:
+                return False, "Não foi possível encontrar o usuário na lista correspondente para remoção."
+        except Exception as e:
+            return False, f"Erro ao excluir usuário: {e}"
+
     # --- CRUD Cursos ---
     def mostrar_tela_gerenciamento_cursos_professor(self):
         # Exibe a tela de gerenciamento de cursos.
@@ -373,7 +525,7 @@ class AppController:
         if not curso: return False, "Curso não encontrado para exclusão."
         if any(t.id_curso == id_curso for t in self.turmas): return False, f"Não é possível excluir o curso '{curso.nome_curso}', pois ele está associado a uma ou mais turmas."
         self.cursos.remove(curso); self.salvar_todos_os_dados(); return True, f"Curso '{curso.nome_curso}' excluído com sucesso."
-# Continuacao da classe AppController:
+
     # --- CRUD Turmas ---
     def mostrar_tela_gerenciamento_turmas(self):
         # Exibe a tela de gerenciamento de turmas.
@@ -466,7 +618,7 @@ class AppController:
             if prof_obj: prof_obj.remover_turma(turma_para_excluir.id_turma)
                 
         self.turmas.remove(turma_para_excluir); self.salvar_todos_os_dados(); return True, f"Turma '{turma_para_excluir.nome_turma}' excluída com sucesso."
-# Continuacao da classe AppController:
+
     # --- Métodos para Alunos (Inscrição, etc.) ---
     def mostrar_tela_listagem_cursos_aluno(self):
         # Exibe a tela de listagem de cursos para alunos.
@@ -540,7 +692,7 @@ class AppController:
         
         self.salvar_todos_os_dados()
         return True, f"Inscrição na turma '{turma.nome_turma}' realizada com sucesso!"
-# Continuacao da classe AppController:
+
     # --- Métodos para Gerenciamento de Atividades ---
     def mostrar_tela_gerenciar_atividades_turma(self):
         # Exibe a tela de gerenciamento de atividades para o professor logado.
@@ -646,7 +798,7 @@ class AppController:
         # (Implementação real dependerá da entidade Avaliacao)
         print(f"INFO: Verificação de avaliações para atividade {id_atividade} não implementada completamente.")
         return False # Por enquanto, assume que não há avaliações
-# Continuacao da classe AppController:
+
     def adicionar_aluno(self, aluno: Aluno): # Método de exemplo, pode ser expandido
         # Adiciona um novo aluno ao sistema (atualmente não usado por nenhuma tela).
         if any(a.email == aluno.email or a.matricula == aluno.matricula for a in self.alunos):
@@ -656,7 +808,8 @@ class AppController:
         self.salvar_todos_os_dados()
         messagebox.showinfo("Sucesso", f"Aluno {aluno.nome} cadastrado.")
         return True
-# --- Métodos para Trilhas de Aprendizagem (Visão Aluno) ---
+    
+    # --- Métodos para Trilhas de Aprendizagem (Visão Aluno) ---
     def obter_trilhas_disponiveis(self) -> List[TrilhaAprendizagem]:
         return self.trilhas
 
@@ -721,6 +874,160 @@ class AppController:
         # Inicia o loop principal da aplicação Tkinter.
         self.root.mainloop()
 
+    def mostrar_tela_editar_trilha(self): # Novo nome para clareza
+        """Abre a tela para editar os detalhes e a sequência de itens de uma trilha."""
+        # Poderia adicionar uma verificação se o usuário logado tem permissão (ex: Coordenador)
+        # if not self.usuario_logado or not isinstance(self.usuario_logado, Coordenador):
+        #     messagebox.showerror("Acesso Negado", "Apenas Coordenadores podem editar trilhas.")
+        #     return
+        # Ou, se for para Professores, como no pedido original da tela "Publicar..."
+        if not self.usuario_logado or not isinstance(self.usuario_logado, Professor):
+             messagebox.showerror("Acesso Negado", "Funcionalidade para Professores/Coordenadores.") # Ajuste a permissão
+             return
+
+
+        if self.current_toplevel and self.current_toplevel.winfo_exists():
+            try:
+                self.current_toplevel.destroy()
+            except tk.TclError:
+                pass
+        
+        self.current_toplevel = TelaEditarTrilha(self.root, self)
+        self.centralizar_janela(900, 700, toplevel_window=self.current_toplevel)
+
+
+    # Método para buscar todos os cursos (já deve existir, como self.cursos)
+    # def obter_cursos(self) -> List[Curso]: return self.cursos
+    
+    # Método para buscar todas as atividades (já deve existir, como self.atividades)
+    # def obter_atividades(self) -> List[Atividade]: return self.atividades
+
+    # Método para buscar trilhas disponíveis (já deve existir)
+    # def obter_trilhas_disponiveis(self) -> List[TrilhaAprendizagem]: return self.trilhas
+    # def obter_trilha_por_id(self, id_trilha: str) -> Optional[TrilhaAprendizagem]: (já deve existir)
+
+
+    def atualizar_dados_trilha(self, id_trilha: str, novos_dados_trilha: dict, nova_sequencia_itens: list) -> Tuple[bool, str]:
+        """
+        Atualiza os dados de uma trilha (nome, descrição, público) e sua sequência de itens.
+        """
+        trilha = self.obter_trilha_por_id(id_trilha)
+        if not trilha:
+            return False, "Trilha não encontrada para atualização."
+
+        try:
+            trilha.nome_trilha = novos_dados_trilha.get("nome_trilha", trilha.nome_trilha)
+            trilha.descricao = novos_dados_trilha.get("descricao", trilha.descricao)
+            trilha.publico_alvo = novos_dados_trilha.get("publico_alvo", trilha.publico_alvo)
+            
+            # Validação simples da nova sequência (cada item deve ter tipo, id_item, nome_referencia)
+            for item in nova_sequencia_itens:
+                if not ("tipo" in item and "id_item" in item and "nome_referencia" in item):
+                    return False, "Formato inválido para um ou mais itens na sequência."
+            
+            trilha.sequencia_itens = nova_sequencia_itens # Substitui a sequência inteira
+
+            self.salvar_todos_os_dados()
+            return True, f"Trilha '{trilha.nome_trilha}' atualizada com sucesso."
+        except Exception as e:
+            return False, f"Erro ao atualizar a trilha: {e}"
+        
+    def mostrar_tela_lancar_notas(self):
+        """Abre a tela para o professor lançar/ver notas."""
+        if not self.usuario_logado or not isinstance(self.usuario_logado, Professor):
+            messagebox.showerror("Acesso Negado", "Apenas professores podem lançar notas.")
+            return
+
+        if self.current_toplevel and self.current_toplevel.winfo_exists():
+            try:
+                self.current_toplevel.destroy()
+            except tk.TclError:
+                pass
+        
+        self.current_toplevel = TelaLancarVerNotas(self.root, self, self.usuario_logado.id_usuario)
+        self.centralizar_janela(1000, 700, toplevel_window=self.current_toplevel)
+
+
+    def obter_alunos_da_turma(self, id_turma: str) -> List[Aluno]:
+        """Retorna uma lista de objetos Aluno inscritos na turma especificada."""
+        turma = self.obter_turma_por_id(id_turma)
+        if not turma:
+            return []
+        
+        alunos_obj_list = []
+        for id_aluno in turma.lista_id_alunos:
+            aluno = self.obter_aluno_por_id(id_aluno)
+            if aluno:
+                alunos_obj_list.append(aluno)
+        return alunos_obj_list
+
+    def obter_avaliacoes_por_turma_e_atividade(self, id_turma: str, id_atividade: str) -> List[Avaliacao]:
+        """Filtra e retorna avaliações para uma turma e atividade específicas."""
+        return [
+            aval for aval in self.avaliacoes 
+            if aval.id_turma == id_turma and aval.id_atividade == id_atividade
+        ]
+
+    # obter_avaliacao_por_id já existe no AppController na seção de Aluno, pode ser reutilizado:
+    # def obter_avaliacao_por_id(self, id_avaliacao: str) -> Optional[Avaliacao]:
+    #     return next((av for av in self.avaliacoes if av.id_avaliacao == id_avaliacao), None)
+    # Se não existir, adicione-o:
+    def obter_avaliacao_por_id(self, id_avaliacao: str) -> Optional[Avaliacao]:
+         """Retorna uma avaliação específica pelo seu ID."""
+         return next((av for av in self.avaliacoes if av.id_avaliacao == id_avaliacao), None)
+
+
+    def criar_avaliacao(self, dados_avaliacao: dict) -> Tuple[bool, str]:
+        """Cria uma nova avaliação para um aluno em uma atividade."""
+        id_aluno = dados_avaliacao["id_aluno"]
+        id_atividade = dados_avaliacao["id_atividade"]
+
+        # Verificar se já existe uma avaliação para este aluno nesta atividade
+        # (Pode ser mais robusto, mas para simplificar, o fluxo da UI tenta evitar duplicados diretos)
+        for aval_existente in self.avaliacoes:
+            if aval_existente.id_aluno == id_aluno and aval_existente.id_atividade == id_atividade:
+                return False, "Já existe uma avaliação para este aluno nesta atividade. Edite a existente."
+
+        try:
+            nova_avaliacao = Avaliacao.from_dict(dados_avaliacao) # from_dict gerencia id_avaliacao e data
+            self.avaliacoes.append(nova_avaliacao)
+            self.salvar_todos_os_dados()
+            return True, "Avaliação lançada com sucesso!"
+        except ValueError as ve:
+            return False, str(ve)
+        except Exception as e:
+            return False, f"Erro inesperado ao criar avaliação: {e}"
+
+    def atualizar_avaliacao(self, id_avaliacao_alvo: str, novos_dados: dict) -> Tuple[bool, str]:
+        """Atualiza uma avaliação existente."""
+        avaliacao = self.obter_avaliacao_por_id(id_avaliacao_alvo)
+        if not avaliacao:
+            return False, "Avaliação não encontrada para atualização."
+
+        try:
+            # Atualiza apenas nota e feedback. Outros IDs (aluno, atividade, turma) não devem mudar.
+            avaliacao.nota = novos_dados.get("nota", avaliacao.nota)
+            avaliacao.feedback_professor = novos_dados.get("feedback_professor", avaliacao.feedback_professor)
+            # Poderia atualizar id_professor_avaliador se necessário, e data_lancamento para data da edição.
+            avaliacao.id_professor_avaliador = novos_dados.get("id_professor_avaliador", avaliacao.id_professor_avaliador)
+            # avaliacao.data_lancamento = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Se quiser atualizar data
+
+            self.salvar_todos_os_dados()
+            return True, "Avaliação atualizada com sucesso!"
+        except Exception as e:
+            return False, f"Erro ao atualizar avaliação: {e}"
+
+    # Se precisar de uma função para excluir avaliações:
+    def excluir_avaliacao(self, id_avaliacao: str) -> Tuple[bool, str]:
+        """Exclui uma avaliação do sistema."""
+        avaliacao = self.obter_avaliacao_por_id(id_avaliacao)
+        if not avaliacao:
+            return False, "Avaliação não encontrada para exclusão."
+        
+        self.avaliacoes.remove(avaliacao)
+        self.salvar_todos_os_dados()
+        return True, "Avaliação excluída com sucesso."
+        
 # Ponto de entrada da aplicação
 if __name__ == "__main__":
     root = tk.Tk()

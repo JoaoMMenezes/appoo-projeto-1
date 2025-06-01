@@ -16,10 +16,37 @@
     {
         "id_turma": "b55fb222-a071-47a5-bc43-6db4a719c5f0",
         "id_curso": "78681dbf-5eda-4210-83b3-a6dcaaefe135",
-        "id_professor": "ecbb8ec4-659e-44df-bc07-7fdf8f1825ad",
+        "id_professor": "b832903a-af65-439d-81f5-c126560b84ec",
         "nome_turma": "TT2",
         "max_alunos": 12,
+        "lista_id_alunos": [
+            "3954927f-44fd-4abe-96e1-61cabece20d0",
+            "f6ad0f4e-55d4-4586-a2ba-7fe6bd98d936"
+        ],
+        "lista_id_atividades": [
+            "9182c473-d283-49c5-a6ab-314b5a1915f8"
+        ]
+    },
+    {
+        "id_turma": "a83e96f0-3b4b-4db7-b025-7d6caee2e8c9",
+        "id_curso": "a472bfe5-5f61-4193-8243-8745fb779015",
+        "id_professor": "ecbb8ec4-659e-44df-bc07-7fdf8f1825ad",
+        "nome_turma": "Turma A",
+        "max_alunos": 34,
         "lista_id_alunos": [],
         "lista_id_atividades": []
+    },
+    {
+        "id_turma": "ddf35b4e-c100-4db6-a380-871680b22d4e",
+        "id_curso": "1fe0587c-febd-42a3-945d-9d9683c9bec7",
+        "id_professor": "b832903a-af65-439d-81f5-c126560b84ec",
+        "nome_turma": "Turma Teste",
+        "max_alunos": 20,
+        "lista_id_alunos": [
+            "ea6d9371-ba45-48eb-83b1-06017ceb41ed"
+        ],
+        "lista_id_atividades": [
+            "6713669a-1025-49e5-9103-6ede920ed69e"
+        ]
     }
 ]

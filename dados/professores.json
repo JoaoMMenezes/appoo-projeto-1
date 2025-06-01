@@ -8,7 +8,19 @@
         "departamento": "Exatas",
         "turmas_lecionadas": [
             "6435425c-5cce-4951-8ee4-4ef9c6f541eb",
-            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
+            "a83e96f0-3b4b-4db7-b025-7d6caee2e8c9"
+        ]
+    },
+    {
+        "id_usuario": "b832903a-af65-439d-81f5-c126560b84ec",
+        "nome": "Professor da Silva Teste",
+        "email": "professor",
+        "_senha_hash": "289160db0d9f39f9ae1754c4ec9c16f90b50e32e09c5fb5481ae642b3d3d1a36",
+        "tipo": "Professor",
+        "departamento": "TI",
+        "turmas_lecionadas": [
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0",
+            "ddf35b4e-c100-4db6-a380-871680b22d4e"
         ]
     }
 ]

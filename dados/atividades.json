@@ -14,5 +14,21 @@
         "descricao": "Conteúdo das primeiras 5 aulas.",
         "data_prazo": "30/06/2025",
         "tipo": "Prova"
+    },
+    {
+        "id_atividade": "9182c473-d283-49c5-a6ab-314b5a1915f8",
+        "id_turma_ou_curso": "b55fb222-a071-47a5-bc43-6db4a719c5f0",
+        "titulo": "Teste de Atividade",
+        "descricao": "Enviar um pdf.",
+        "data_prazo": "04/06/2025",
+        "tipo": "Exercício"
+    },
+    {
+        "id_atividade": "6713669a-1025-49e5-9103-6ede920ed69e",
+        "id_turma_ou_curso": "ddf35b4e-c100-4db6-a380-871680b22d4e",
+        "titulo": "Primeira Atividade",
+        "descricao": "Fazer um teste.",
+        "data_prazo": "04/06/2025",
+        "tipo": "Exercício"
     }
 ]

@@ -5,7 +5,7 @@
         "descricao": "Aprenda o básico da programação com Python.",
         "sequencia_itens": [
             {
-                "tipo": "curso",
+                "tipo": "aula",
                 "id_item": "a472bfe5-5f61-4193-8243-8745fb779015",
                 "nome_referencia": "Introdução à Programação"
             },

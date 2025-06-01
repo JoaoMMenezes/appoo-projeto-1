@@ -85,8 +85,10 @@ class TelaMenuProfessor(TelaMenuBase):
 
     def gerenciar_cursos(self): self.app_controller.mostrar_tela_gerenciamento_cursos_professor()
     def gerenciar_turmas(self): self.app_controller.mostrar_tela_gerenciamento_turmas()
-    def publicar_conteudo(self): messagebox.showinfo("Professor", "Funcionalidade: Publicar Aulas/Atividades (Não implementado)")
-    def lancar_ver_notas(self): messagebox.showinfo("Professor", "Funcionalidade: Lançar/Ver Notas (Não implementado)")
+    # def publicar_conteudo(self): self.app_controller.mostrar_tela_editar_trilha()
+    def publicar_conteudo(self): self.app_controller.mostrar_tela_gerenciar_atividades_turma()
+
+    def lancar_ver_notas(self): self.app_controller.mostrar_tela_lancar_notas()
 
 class TelaMenuCoordenador(TelaMenuBase):
     def _configurar_interface_especifica(self):
@@ -108,11 +110,11 @@ class TelaMenuCoordenador(TelaMenuBase):
         btn_auditar_conteudo = ttk.Button(frame_acoes, text="Auditar Conteúdo", command=self.auditar_conteudo)
         btn_auditar_conteudo.pack(fill="x", pady=3)
 
-    def gerenciar_usuarios(self): messagebox.showinfo("Coordenador", "Funcionalidade: Gerenciar Usuários (Não implementado)")
+    def gerenciar_usuarios(self): self.app_controller.mostrar_tela_gerenciar_usuarios()
     def gerenciar_cursos_coord(self): self.app_controller.mostrar_tela_gerenciamento_cursos_professor()
     def gerenciar_turmas_coord(self): self.app_controller.mostrar_tela_gerenciamento_turmas()
     def ver_relatorios(self): messagebox.showinfo("Coordenador", "Funcionalidade: Relatórios de Desempenho (Não implementado)")
-    def configurar_trilhas(self): messagebox.showinfo("Coordenador", "Funcionalidade: Configurar Trilhas (Não implementado)") # Pode chamar mostrar_tela_placeholder
+    def configurar_trilhas(self): self.app_controller.mostrar_tela_editar_trilha()
     def auditar_conteudo(self): messagebox.showinfo("Coordenador", "Funcionalidade: Auditar Conteúdo (Não implementado)") # Pode chamar mostrar_tela_placeholder
 
 # Exemplo de como usar estas telas (para teste)
