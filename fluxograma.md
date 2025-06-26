@@ -29,10 +29,6 @@ flowchart TD
     H --> H1[Gerenciar Usuários]
     H --> H1[Gerenciar Cursos]
     H --> H1[Gerenciar Turmas]
-
-    <!-- H --> H2[Relatórios de Desempenho] -->
-    <!-- H --> H3[Configurar Trilhas] -->
-    <!-- H --> H4[Auditar Conteúdo] -->
   end
 
   F1 & F2 & F3 & F4 --> I[Logout]
