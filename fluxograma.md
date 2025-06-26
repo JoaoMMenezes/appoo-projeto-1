@@ -27,11 +27,11 @@ flowchart TD
 
   subgraph Ações Coordenador
     H --> H1[Gerenciar Usuários]
-    H --> H1[Gerenciar Cursos]
-    H --> H1[Gerenciar Turmas]
+    H --> H2[Gerenciar Cursos]
+    H --> H3[Gerenciar Turmas]
   end
 
   F1 & F2 & F3 & F4 --> I[Logout]
   G1 & G2 & G3 & G4 --> I
-  H1 & H2 & H3 & H4 --> I
+  H1 & H2 & H3 --> I
 ```
