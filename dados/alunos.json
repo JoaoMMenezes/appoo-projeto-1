@@ -30,7 +30,18 @@
         "tipo": "Aluno",
         "matricula": "mat222",
         "turmas_inscritas": [
-            "ddf35b4e-c100-4db6-a380-871680b22d4e"
+            "ddf35b4e-c100-4db6-a380-871680b22d4e",
+            "a83e96f0-3b4b-4db7-b025-7d6caee2e8c9",
+            "b55fb222-a071-47a5-bc43-6db4a719c5f0"
         ]
+    },
+    {
+        "id_usuario": "ab732885-56c5-442c-9d7a-991aa39a3f03",
+        "nome": "Aluno Teste de Oliveira",
+        "email": "aluno@email.com",
+        "_senha_hash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "tipo": "Aluno",
+        "matricula": "12345",
+        "turmas_inscritas": []
     }
 ]

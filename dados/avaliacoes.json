@@ -8,5 +8,15 @@
         "feedback_professor": "Muito bom esforço!",
         "data_lancamento": "2025-05-29 16:23:53",
         "id_professor_avaliador": "ecbb8ec4-659e-44df-bc07-7fdf8f1825ad"
+    },
+    {
+        "id_avaliacao": "f59c8267-3e6f-4409-8137-079e3d9b4491",
+        "id_aluno": "ea6d9371-ba45-48eb-83b1-06017ceb41ed",
+        "id_atividade": "717b3ef5-4897-48b8-b9a5-299646658615",
+        "id_turma": "b55fb222-a071-47a5-bc43-6db4a719c5f0",
+        "nota": "8,5",
+        "feedback_professor": "Mediano",
+        "data_lancamento": "2025-06-01 10:49:23",
+        "id_professor_avaliador": "b832903a-af65-439d-81f5-c126560b84ec"
     }
 ]

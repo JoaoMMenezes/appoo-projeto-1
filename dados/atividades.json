@@ -30,5 +30,13 @@
         "descricao": "Fazer um teste.",
         "data_prazo": "04/06/2025",
         "tipo": "Exercício"
+    },
+    {
+        "id_atividade": "717b3ef5-4897-48b8-b9a5-299646658615",
+        "id_turma_ou_curso": "b55fb222-a071-47a5-bc43-6db4a719c5f0",
+        "titulo": "Nova atividade",
+        "descricao": "descrição",
+        "data_prazo": "18/06/2025",
+        "tipo": "Prova"
     }
 ]

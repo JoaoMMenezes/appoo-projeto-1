@@ -66,7 +66,6 @@ class TelaMenuAluno(TelaMenuBase):
         self.app_controller.mostrar_tela_visualizar_notas_aluno()
     # ...
 
-
 class TelaMenuProfessor(TelaMenuBase):
     def _configurar_interface_especifica(self):
         super()._configurar_interface_especifica()
@@ -103,19 +102,19 @@ class TelaMenuCoordenador(TelaMenuBase):
         btn_gerenciar_cursos_coord.pack(fill="x", pady=3)
         btn_gerenciar_turmas_coord = ttk.Button(frame_acoes, text="Gerenciar Turmas", command=self.gerenciar_turmas_coord) 
         btn_gerenciar_turmas_coord.pack(fill="x", pady=3)
-        btn_relatorios = ttk.Button(frame_acoes, text="Relatórios de Desempenho", command=self.ver_relatorios)
-        btn_relatorios.pack(fill="x", pady=3)
-        btn_config_trilhas = ttk.Button(frame_acoes, text="Configurar Trilhas de Aprendizagem", command=self.configurar_trilhas)
-        btn_config_trilhas.pack(fill="x", pady=3)
-        btn_auditar_conteudo = ttk.Button(frame_acoes, text="Auditar Conteúdo", command=self.auditar_conteudo)
-        btn_auditar_conteudo.pack(fill="x", pady=3)
+        # btn_relatorios = ttk.Button(frame_acoes, text="Relatórios de Desempenho", command=self.ver_relatorios)
+        # btn_relatorios.pack(fill="x", pady=3)
+        # btn_config_trilhas = ttk.Button(frame_acoes, text="Configurar Trilhas de Aprendizagem", command=self.configurar_trilhas)
+        # btn_config_trilhas.pack(fill="x", pady=3)
+        # btn_auditar_conteudo = ttk.Button(frame_acoes, text="Auditar Conteúdo", command=self.auditar_conteudo)
+        # btn_auditar_conteudo.pack(fill="x", pady=3)
 
     def gerenciar_usuarios(self): self.app_controller.mostrar_tela_gerenciar_usuarios()
     def gerenciar_cursos_coord(self): self.app_controller.mostrar_tela_gerenciamento_cursos_professor()
     def gerenciar_turmas_coord(self): self.app_controller.mostrar_tela_gerenciamento_turmas()
-    def ver_relatorios(self): messagebox.showinfo("Coordenador", "Funcionalidade: Relatórios de Desempenho (Não implementado)")
-    def configurar_trilhas(self): self.app_controller.mostrar_tela_editar_trilha()
-    def auditar_conteudo(self): messagebox.showinfo("Coordenador", "Funcionalidade: Auditar Conteúdo (Não implementado)") # Pode chamar mostrar_tela_placeholder
+    # def ver_relatorios(self): messagebox.showinfo("Coordenador", "Funcionalidade: Relatórios de Desempenho (Não implementado)")
+    # def configurar_trilhas(self): self.app_controller.mostrar_tela_editar_trilha()
+    # def auditar_conteudo(self): messagebox.showinfo("Coordenador", "Funcionalidade: Auditar Conteúdo (Não implementado)") # Pode chamar mostrar_tela_placeholder
 
 # Exemplo de como usar estas telas (para teste)
 if __name__ == '__main__':

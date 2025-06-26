@@ -19,7 +19,7 @@ flowchart TD
   end
 
   subgraph Ações Professor
-    G --> G1[Criar/Editar Curso]
+    G --> G1[Gerenciar Cursos]
     G --> G2[Gerenciar Turmas]
     G --> G3[Publicar Aulas]
     G --> G4[Lançar/Ver Notas]
@@ -27,9 +27,12 @@ flowchart TD
 
   subgraph Ações Coordenador
     H --> H1[Gerenciar Usuários]
-    H --> H2[Relatórios de Desempenho]
-    H --> H3[Configurar Trilhas]
-    H --> H4[Auditar Conteúdo]
+    H --> H1[Gerenciar Cursos]
+    H --> H1[Gerenciar Turmas]
+
+    <!-- H --> H2[Relatórios de Desempenho] -->
+    <!-- H --> H3[Configurar Trilhas] -->
+    <!-- H --> H4[Auditar Conteúdo] -->
   end
 
   F1 & F2 & F3 & F4 --> I[Logout]
